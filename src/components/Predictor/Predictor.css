@@ -1,0 +1,24 @@
+/* Result Container */
+.result-container {
+    padding: 15px;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    min-height: 50px;
+    text-align: left;
+    font-size: 16px;
+    line-height: 1.5;
+}
+
+/* Deck Card Styling */
+.deck-card {
+    background-color: white;
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    margin-top: 10px;
+}
+
+/* List Styling */
+.MuiList-root {
+    padding: 0;
+}
