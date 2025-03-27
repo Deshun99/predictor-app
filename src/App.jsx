@@ -11,14 +11,19 @@ export default function App() {
 
       {/* Centered Container for the App */}
       <Container
-        maxWidth="sm"
+        maxWidth={false} // Disables Material-UI default width constraints
         sx={{
+          width: "100vw", // Ensures full viewport width
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
-          justifyContent: "flex-start", // Aligns content to the top
+          justifyContent: "flex-start",
           minHeight: "100vh",
-          paddingTop: "20px", // Add slight top padding
+          paddingTop: "20px",
+          paddingLeft: "10px", // Prevents unintended margin shifts
+          paddingRight: "10px",
+          boxSizing: "border-box", // Ensures padding doesn't affect width
+          overflowX: "hidden", // Prevents unwanted horizontal shifts
         }}
       >
         <Predictor />

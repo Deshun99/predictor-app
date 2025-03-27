@@ -1,5 +1,6 @@
 import React from "react";
 import { Card, Typography, Box } from "@mui/material";
+import "../../App.css";
 
 // Function to apply color styles dynamically
 const getHighlightStyle = (
@@ -70,7 +71,15 @@ const getHighlightStyle = (
 // PredictionResult Component
 const PredictionResult = ({ result }) => {
   return (
-    <Box className="result-container">
+    <Box
+      sx={{
+        width: "100%",
+        maxWidth: "1000px", // Slightly smaller than main container
+        textAlign: "center",
+        margin: "0 auto",
+        overflowX: "hidden", // Prevent any horizontal shifting
+      }}
+    >
       {result.length > 0 ? (
         result.map((deck, index) => {
           // Get the first match index to grey out previous cards

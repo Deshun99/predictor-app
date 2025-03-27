@@ -13,3 +13,12 @@
   max-width: 1000px; /* Adjust width */
   margin: 0 auto;
 } 
+
+.result-container {
+  width: 100%; /* Ensure full width */
+  max-width: 800px; /* Set a fixed max-width */
+  min-height: 200px; /* Prevent height shifting */
+  white-space: nowrap; /* Ensure text doesn't wrap unexpectedly */
+  overflow-x: auto; /* Enable horizontal scrolling if needed */
+  text-align: center;
+}

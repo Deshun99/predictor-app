@@ -48,6 +48,9 @@ const Predictor = () => {
     <div className="predictor-container">
       <Box
         className="mui-card"
+        sx={{
+          overflowX: "hidden", // Prevent any horizontal shifting
+        }}
       >
         <form onSubmit={handleSubmit} className="formContainer">
           <Autocomplete
