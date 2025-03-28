@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { predictCard, allCards } from "./predictorLogic";
+import React, { useState, useEffect } from "react";
+import { predictCard, fetchAllCards } from "./predictorLogic";
 import {
   TextField,
   Autocomplete,
@@ -19,6 +19,16 @@ const Predictor = () => {
   const [selectedCard2, setSelectedCard2] = useState(null);
   const [selectedCard3, setSelectedCard3] = useState(null);
   const [selectedBarcodeDown, setSelectedBarcodeDown] = useState(false);
+  const [allCards, setAllCards] = useState([]);
+
+  useEffect(() => {
+    const loadCards = async () => {
+      const cards = await fetchAllCards();
+      setAllCards(cards);
+    };
+
+    loadCards();
+  }, []);
 
   // Store final submitted values (only updates when Predict is clicked)
   const [card1, setCard1] = useState(null);
@@ -27,21 +37,15 @@ const Predictor = () => {
   const [barcodeDown, setBarcodeDown] = useState(false);
   const [result, setResult] = useState([]);
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     // Update the final values for prediction
     setCard1(selectedCard1);
     setCard2(selectedCard2);
     setCard3(selectedCard3);
     setBarcodeDown(selectedBarcodeDown);
-    setResult(
-      predictCard(
-        selectedCard1,
-        selectedCard2,
-        selectedCard3,
-        selectedBarcodeDown
-      )
-    );
+    const results = await predictCard(selectedCard1, selectedCard2, selectedCard3, selectedBarcodeDown);
+    setResult(results);
   };
 
   return (
@@ -49,12 +53,12 @@ const Predictor = () => {
       <Box
         className="mui-card"
         sx={{
-          overflowX: "hidden", // Prevent any horizontal shifting
+          overflowX: "hidden", 
         }}
       >
         <form onSubmit={handleSubmit} className="formContainer">
           <Autocomplete
-            sx={{ mb: 2 }}
+            sx={{ mb: 2, mt: 2 }}
             options={allCards}
             value={selectedCard1}
             onChange={(event, newValue) => setSelectedCard1(newValue)}
