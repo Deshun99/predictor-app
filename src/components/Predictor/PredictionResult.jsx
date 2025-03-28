@@ -80,9 +80,12 @@ const PredictionResult = ({ result }) => {
         overflowX: "hidden", // Prevent any horizontal shifting
       }}
     >
-      {result.length > 0 ? (
+      {result === null ? ( // Handle case when result is not set
+        <Typography variant="body1" color="textSecondary">
+          Please submit a prediction.
+        </Typography>
+      ) : result.length > 0 ? ( // Handle case when results exist
         result.map((deck, index) => {
-          // Get the first match index to grey out previous cards
           const firstMatchIndex =
             deck.matchedIndices.length > 0
               ? Math.min(...deck.matchedIndices)
@@ -130,6 +133,7 @@ const PredictionResult = ({ result }) => {
           );
         })
       ) : (
+        // Handle case when result is empty ([])
         <Typography variant="body1" color="textSecondary">
           No valid prediction found.
         </Typography>

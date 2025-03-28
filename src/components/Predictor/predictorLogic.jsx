@@ -17,7 +17,7 @@ export const fetchAllCards = async () => {
 
 export const predictCard = async (card1, card2, card3, barcodeDown) => {
   try {
-    const response = await fetch(`${API_URL}/calculation/free`, {
+    const response = await fetch(`${API_URL}/calculation/predict`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

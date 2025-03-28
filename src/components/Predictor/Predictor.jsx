@@ -35,7 +35,7 @@ const Predictor = () => {
   const [card2, setCard2] = useState(null);
   const [card3, setCard3] = useState(null);
   const [barcodeDown, setBarcodeDown] = useState(false);
-  const [result, setResult] = useState([]);
+  const [result, setResult] = useState(null);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
