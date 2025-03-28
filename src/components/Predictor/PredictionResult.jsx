@@ -35,7 +35,6 @@ const getHighlightStyle = (
       borderRadius: "5px",
       padding: "2px 4px",
       fontSize: "12px",
-      border: "2px solid black",
     };
   }
   if (card.includes("(Bronze)"))
