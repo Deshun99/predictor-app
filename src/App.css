@@ -8,6 +8,10 @@
   width: 100%;
 }
 
+body {
+  font-family: 'Montserrat', sans-serif;
+}
+
 .predictor-container {
   width: 100%;
   max-width: 1000px; /* Adjust width */

@@ -1,8 +1,15 @@
 const API_URL = import.meta.env.VITE_API_URL;
 
-export const fetchAllCards = async () => {
+export const fetchAllCards = async (version) => {
   try {
-    const response = await fetch(`${API_URL}/calculation/all-cards`);
+    const response = await fetch(`${API_URL}/calculation/all-cards`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ version }),
+    });
+
     if (!response.ok) {
       throw new Error("Failed to fetch cards");
     }
@@ -15,14 +22,14 @@ export const fetchAllCards = async () => {
   }
 };
 
-export const predictCard = async (card1, card2, card3, barcodeDown) => {
+export const predictCard = async (card1, card2, card3, barcodeDown, version) => {
   try {
     const response = await fetch(`${API_URL}/calculation/predict`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ card1, card2, card3, barcodeDown }),
+      body: JSON.stringify({ card1, card2, card3, barcodeDown, version }),
     });
 
     if (!response.ok) {
