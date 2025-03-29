@@ -43,3 +43,30 @@ export const predictCard = async (card1, card2, card3, barcodeDown, version) => 
     return [];
   }
 };
+
+export const predict3rdCard = async (
+  card1,
+  card2,
+  barcodeDown,
+  version
+) => {
+  try {
+    const response = await fetch(`${API_URL}/calculation/predict3rd`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ card1, card2, barcodeDown, version }),
+    });
+
+    if (!response.ok) {
+      throw new Error("Failed to fetch prediction results");
+    }
+
+    const data = await response.json();
+    return data; // Return the response to update UI
+  } catch (error) {
+    console.error("Error fetching prediction:", error);
+    return [];
+  }
+};

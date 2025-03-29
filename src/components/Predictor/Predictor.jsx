@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { predictCard, fetchAllCards } from "./predictorLogic";
+import { predictCard, predict3rdCard, fetchAllCards } from "./predictorLogic";
 import {
   TextField,
   Autocomplete,
@@ -8,6 +8,8 @@ import {
   FormControlLabel,
   Typography,
   Box,
+  Tabs,
+  Tab,
 } from "@mui/material";
 import PredictionResult from "./PredictionResult";
 import "../../App.css";
@@ -20,6 +22,7 @@ const Predictor = () => {
   const [selectedCard2, setSelectedCard2] = useState(null);
   const [selectedCard3, setSelectedCard3] = useState(null);
   const [selectedBarcodeDown, setSelectedBarcodeDown] = useState(false);
+  const [tabIndex, setTabIndex] = useState(0);
 
   // Store final submitted values (only updates when Predict is clicked)
   const [card1, setCard1] = useState(null);
@@ -29,7 +32,7 @@ const Predictor = () => {
   const [barcodeDown, setBarcodeDown] = useState(false);
   const [result, setResult] = useState(null);
 
-  const versionOptions = ["1", "2", "3", "4"];
+  const versionOptions = ["1"];
 
   // Fetch cards only when a version is selected
   useEffect(() => {
@@ -57,13 +60,26 @@ const Predictor = () => {
     setVer(selectedVer);
     setBarcodeDown(selectedBarcodeDown);
 
-    const results = await predictCard(
-      selectedCard1,
-      selectedCard2,
-      selectedCard3,
-      selectedBarcodeDown,
-      selectedVer
-    );
+    let results;
+
+    if (tabIndex === 0) {
+      // Predict 3rd Card (Less Accurate)
+      results = await predict3rdCard(
+        selectedCard1,
+        selectedCard2,
+        selectedBarcodeDown,
+        selectedVer
+      );
+    } else {
+      // Predict 4th Card (Standard)
+      results = await predictCard(
+        selectedCard1,
+        selectedCard2,
+        selectedCard3,
+        selectedBarcodeDown,
+        selectedVer
+      );
+    }
 
     setResult(results);
   };
@@ -76,12 +92,48 @@ const Predictor = () => {
           overflowX: "hidden",
         }}
       >
-        <Box sx={{ display: "flex", justifyContent: "center", mb: 2 }}>
+        {/* ✅ Logo + Tabs Row */}
+        <Box
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+            mb: 2,
+            px: 2,
+          }}
+        >
+          {/* Logo */}
           <img
             src="/kv_logo.png"
             alt="App Logo"
             style={{ width: "150px", height: "auto" }}
           />
+
+          {/* Tabs Section */}
+          <Tabs
+            value={tabIndex}
+            onChange={(event, newValue) => setTabIndex(newValue)}
+            indicatorColor="primary"
+            textColor="primary"
+            sx={{ minHeight: "40px" }} // Adjusts height to match logo
+          >
+            <Tab
+              label="3rd Card"
+              sx={{
+                fontSize: "14px",
+                minHeight: "40px",
+                textTransform: "none",
+              }}
+            />
+            <Tab
+              label="4th Card"
+              sx={{
+                fontSize: "14px",
+                minHeight: "40px",
+                textTransform: "none",
+              }}
+            />
+          </Tabs>
         </Box>
 
         <form onSubmit={handleSubmit} className="formContainer">
@@ -113,7 +165,7 @@ const Predictor = () => {
             options={allCards}
             value={selectedCard3}
             onChange={(event, newValue) => setSelectedCard3(newValue)}
-            disabled={!selectedVer}
+            disabled={!selectedVer || tabIndex === 0}
             renderInput={(params) => (
               <TextField {...params} label="Card 3" variant="outlined" />
             )}
@@ -161,7 +213,7 @@ const Predictor = () => {
                 !selectedVer ||
                 !selectedCard1 ||
                 !selectedCard2 ||
-                !selectedCard3
+                (tabIndex === 1 && !selectedCard3)
               }
               sx={{
                 width: "100px",
