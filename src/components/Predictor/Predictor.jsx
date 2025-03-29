@@ -160,16 +160,18 @@ const Predictor = () => {
             )}
           />
 
-          <Autocomplete
-            sx={{ mb: 2 }}
-            options={allCards}
-            value={selectedCard3}
-            onChange={(event, newValue) => setSelectedCard3(newValue)}
-            disabled={!selectedVer || tabIndex === 0}
-            renderInput={(params) => (
-              <TextField {...params} label="Card 3" variant="outlined" />
-            )}
-          />
+          {tabIndex === 1 && (
+            <Autocomplete
+              sx={{ mb: 2 }}
+              options={allCards}
+              value={selectedCard3}
+              onChange={(event, newValue) => setSelectedCard3(newValue)}
+              disabled={!selectedVer}
+              renderInput={(params) => (
+                <TextField {...params} label="Card 3" variant="outlined" />
+              )}
+            />
+          )}
 
           <Box
             sx={{
