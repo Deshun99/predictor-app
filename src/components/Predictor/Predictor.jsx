@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { predictCard, predict3rdCard, fetchAllCards } from "./predictorLogic";
+import { predictCard, predict3rdCard, fetchAllCards } from "../backend/predictorLogic";
 import {
   TextField,
   Autocomplete,
