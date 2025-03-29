@@ -202,7 +202,12 @@ const Predictor = () => {
                 />
               }
               label="Barcode Down"
-              sx={{ "& .MuiTypography-root": { fontSize: "14px" } }}
+              sx={{
+                "& .MuiTypography-root": {
+                  fontSize: "14px",
+                  fontWeight: "bold",
+                },
+              }}
             />
 
             {/* Submit Button */}
@@ -235,13 +240,6 @@ const Predictor = () => {
           </Box>
         </form>
 
-        {/* Show Prediction Result Only After Clicking Predict */}
-        <Typography
-          variant="h5"
-          sx={{ textAlign: "center", marginTop: 2, marginBottom: 2 }}
-        >
-          Prediction Result:
-        </Typography>
         <PredictionResult
           result={result}
           selectedCards={[card1, card2, card3]}

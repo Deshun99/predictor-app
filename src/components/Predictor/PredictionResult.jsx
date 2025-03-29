@@ -80,7 +80,11 @@ const PredictionResult = ({ result }) => {
       }}
     >
       {result === null ? ( // Handle case when result is not set
-        <Typography variant="body1" color="textSecondary">
+        <Typography
+          variant="body1"
+          color="textSecondary"
+          sx={{ marginTop: 4, fontWeight: "bold" }}
+        >
           Please submit a prediction.
         </Typography>
       ) : result.length > 0 ? ( // Handle case when results exist
@@ -133,7 +137,11 @@ const PredictionResult = ({ result }) => {
         })
       ) : (
         // Handle case when result is empty ([])
-        <Typography variant="body1" color="textSecondary">
+        <Typography
+          variant="body1"
+          color="textSecondary"
+          sx={{ marginTop: 4, fontWeight: "bold" }}
+        >
           No valid prediction found.
         </Typography>
       )}
