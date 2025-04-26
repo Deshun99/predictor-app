@@ -3,30 +3,19 @@ name: Release Automation
 on:
   push:
     tags:
-      - 'v*'  # Trigger only on tags like v1.2.3
+      - 'v*'  # Only trigger when pushing a tag like v1.2.3
 
 jobs:
-  bump:
+  create_release:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Checkout code
+      - name: Checkout Code
         uses: actions/checkout@v4
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
         with:
-          fetch-depth: 0
-
-      - name: Set Git identity
-        run: |
-          git config --global user.name "github-actions[bot]"
-          git config --global user.email "github-actions[bot]@users.noreply.github.com"
-
-      - name: Bump version and push tag
-        id: bump_version
-        uses: anothrNick/github-tag-action@v1
+          generate_release_notes: true
         env:
-          GITHUB_TOKEN: ${{ secrets.PAT_TOKEN }}
-          DEFAULT_BUMP: patch
-          WITH_V: true
-          RELEASE_BRANCHES: main
-          TAG_MESSAGE: ${{ github.event.head_commit.message }}
-          INITIAL_VERSION: 1.0.0
-          VERBOSE: true
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
