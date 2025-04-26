@@ -72,6 +72,7 @@ const PredictionResult = ({ result }) => {
   return (
     <Box
       sx={{
+        maxHeight: "600px",
         width: "100%",
         maxWidth: "1000px", // Slightly smaller than main container
         textAlign: "center",

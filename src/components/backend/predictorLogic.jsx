@@ -96,3 +96,12 @@ export const fetchAllCards = (version) => {
 
   return [...new Set(Object.values(decksByVersion[version]).flat())].sort();
 };
+
+export const fetchCardsByVersion = (version, barcodeDown = false) => {
+  if (!version || !decksByVersion[version]) return [];
+
+  return Object.entries(decksByVersion[version]).map(([deckName, cards]) => ({
+    deckName,
+    cards: barcodeDown ? [...cards].reverse() : cards,
+  }));
+};
