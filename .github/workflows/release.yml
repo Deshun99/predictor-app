@@ -46,10 +46,12 @@ jobs:
 
       - name: Generate and Commit CHANGELOG.md
         run: |
+          git remote set-url origin https://x-access-token:${{ secrets.PAT_TOKEN }}@github.com/${{ github.repository }}.git
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
           npx conventional-changelog -p angular -i CHANGELOG.md -s -r 0
           git add CHANGELOG.md
-          git commit -m "docs: update CHANGELOG for ${{ steps.bump_version.outputs.new_tag }}"
-          git remote set-url origin https://x-access-token:${{ secrets.PAT_TOKEN }}@github.com/${{ github.repository }}.git
+          git commit -m "docs: update CHANGELOG for ${{ steps.bump_version.outputs.new_tag }}" || echo "No changes to commit"
           git push origin main
 
       - name: Create GitHub Release
