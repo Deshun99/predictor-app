@@ -39,13 +39,6 @@ const Predictor = () => {
 
   const versionOptions = ["1"];
 
-  const playSubmitSound = () => {
-    const audio = new Audio("/ilookleftlookright.mp3"); 
-    audio.play().catch((error) => {
-      console.error("Error playing audio:", error);
-    });
-  };
-
   // Fetch cards only when a version is selected
   useEffect(() => {
     if (selectedVer) {
@@ -331,7 +324,6 @@ const Predictor = () => {
                 variant="contained"
                 disabled={!pendingVersion}
                 onClick={async () => {
-                  playSubmitSound();
                   setSelectedVer(pendingVersion);
                   setSelectedBarcodeDown(pendingBarcodeDown);
 
