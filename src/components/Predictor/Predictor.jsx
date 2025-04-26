@@ -126,7 +126,7 @@ const Predictor = () => {
           <img
             src="/kv_logo.png"
             alt="App Logo"
-            style={{ width: "120px", height: "auto" }}
+            style={{ width: "100px", height: "auto" }}
           />
 
           {/* Tabs Section */}
