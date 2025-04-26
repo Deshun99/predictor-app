@@ -1,9 +1,8 @@
 # 🧠 Predictor App
 
-A smart, web-based **card sequence prediction tool** designed for arcade-style games. Built using React on the frontend and Flask on the backend, it supports intelligent predictions, card listings, and version-controlled updates via GitHub Actions.
+A smart, web-based **card sequence prediction tool** designed for arcade-style games. Built using React, it supports intelligent predictions, card listings, and version-controlled updates via GitHub Actions.
 
 ![Version Badge](https://img.shields.io/github/v/tag/Deshun99/predictor-app?label=version&style=flat-square)
-![Deploy Status](https://img.shields.io/github/actions/workflow/status/Deshun99/predictor-app/bump-version.yml?label=CI&style=flat-square)
 
 ---
 
@@ -33,26 +32,15 @@ cd predictor-app
 npm install
 npm run dev
 ```
-
-### 3. Run the backend (Flask)
-
-```bash
-cd backend
-pip install -r requirements.txt
-flask run
-```
-
-Make sure the backend runs on a port accessible by the frontend (`http://localhost:5000` by default).
-
 ---
 
 ## 🧪 Prediction Modes
 
-| Mode         | Description                          |
-|--------------|--------------------------------------|
-| **3rd Card** | Predicts next card from first two    |
-| **4th Card** | Predicts next card from three cards  |
-| **Card List**| Displays the full sequence per deck  |
+| Mode         | Description                                |
+|--------------|--------------------------------------------|
+| **3rd Card** | Predicts next card from first two cards    |
+| **4th Card** | Predicts next card from first three cards  |
+| **Card List**| Displays the full sequence per deck        |
 
 ---
 
@@ -66,7 +54,7 @@ Update the following files:
 
 ### Enable Background Music
 
-Your music file (e.g. `/public/ilookleftlookright.mp3`) plays when users enter the **Card List** view and submit a version.
+Music file (e.g. `/public/ilookleftlookright.mp3`) plays when users enter the **Card List** view and submit a version.
 
 ### Semantic Commit Format
 
