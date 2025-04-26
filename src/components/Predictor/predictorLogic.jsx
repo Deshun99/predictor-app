@@ -14,7 +14,29 @@ export const fetchAllCards = async (version) => {
       throw new Error("Failed to fetch cards");
     }
     const data = await response.json();
-    console.log("Fetched Cards:", data); // ✅ Debugging step
+    console.log("Fetched Cards:", data); 
+    return data;
+  } catch (error) {
+    console.error("Error fetching cards:", error);
+    return [];
+  }
+};
+
+export const fetchCardsByVersion = async (version, barcodeDown) => {
+  try {
+    const response = await fetch(`${API_URL}/calculation/fetchCards`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ version, barcodeDown }),
+    });
+
+    if (!response.ok) {
+      throw new Error("Failed to fetch cards");
+    }
+    const data = await response.json();
+    console.log("Fetched Cards:", data); 
     return data;
   } catch (error) {
     console.error("Error fetching cards:", error);
