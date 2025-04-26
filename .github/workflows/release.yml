@@ -3,12 +3,33 @@ name: Full Release Automation
 on:
   push:
     branches:
-      - main
+      - '**'
 
 jobs:
-  release:
+  build:
     runs-on: ubuntu-latest
 
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build project
+        run: npm run build
+
+  release:
+    needs: build
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -30,19 +51,6 @@ jobs:
           RELEASE_BRANCHES: main
           INITIAL_VERSION: 1.0.0
           VERBOSE: true
-
-      - name: Switch to Main Branch
-        run: |
-          git fetch origin main
-          git checkout main
-
-      - name: Set up Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '18'
-
-      - name: Install conventional-changelog-cli
-        run: npm install -D conventional-changelog-cli
 
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
