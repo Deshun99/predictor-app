@@ -1,12 +1,104 @@
-# React + Vite
+# 🧠 Predictor App
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint ruls.
+A smart, web-based **card sequence prediction tool** designed for arcade-style games. Built using React on the frontend and Flask on the backend, it supports intelligent predictions, card listings, and version-controlled updates via GitHub Actions.
 
-Currently, two official plugins are available:
+![Version Badge](https://img.shields.io/github/v/tag/Deshun99/predictor-app?label=version&style=flat-square)
+![Deploy Status](https://img.shields.io/github/actions/workflow/status/Deshun99/predictor-app/bump-version.yml?label=CI&style=flat-square)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## Expanding the ESLint configuration
+## 🔮 Features
 
-If you are developing a production application, we recommend using TypeScript and enable type-aware lint rules. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- 🎴 Predict the **next card** in a sequence (3rd/4th card prediction)
+- 📋 Display card **deck lists** by version
+- 🎼 Background music when viewing card lists
+- 🔁 Barcode orientation toggle (up/down)
+- 🛠 Automated version bumping via commit messages
+- 📝 Auto-generated release notes and changelogs
+
+---
+
+## 🚀 Getting Started
+
+### 1. Clone the repository
+
+```bash
+git clone https://github.com/Deshun99/predictor-app.git
+cd predictor-app
+```
+
+### 2. Install frontend dependencies
+
+```bash
+npm install
+npm run dev
+```
+
+### 3. Run the backend (Flask)
+
+```bash
+cd backend
+pip install -r requirements.txt
+flask run
+```
+
+Make sure the backend runs on a port accessible by the frontend (`http://localhost:5000` by default).
+
+---
+
+## 🧪 Prediction Modes
+
+| Mode         | Description                          |
+|--------------|--------------------------------------|
+| **3rd Card** | Predicts next card from first two    |
+| **4th Card** | Predicts next card from three cards  |
+| **Card List**| Displays the full sequence per deck  |
+
+---
+
+## 🔧 Developer Guide
+
+### Add New Cards
+
+Update the following files:
+- `src/backend/decks/ver1.jsx`, `ver2.jsx`, etc.
+- Card prediction logic in `predictorLogic.js`
+
+### Enable Background Music
+
+Your music file (e.g. `/public/ilookleftlookright.mp3`) plays when users enter the **Card List** view and submit a version.
+
+### Semantic Commit Format
+
+Follow [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/) for auto bumping:
+
+```bash
+git commit -m "feat: add prediction for deck 2 #minor"
+```
+
+| Type     | Description                    | Tag Trigger |
+|----------|--------------------------------|-------------|
+| `feat:`  | New feature                    | `#minor`    |
+| `fix:`   | Bug fix                        | `#patch`    |
+| `chore:` | Build process or tooling change| `#none`     |
+
+---
+
+## 📦 Release & Changelog
+
+Releases and changelogs are automated via GitHub Actions.
+
+- 🏷 **Releases**: https://github.com/Deshun99/predictor-app/releases
+- 📜 **Changelog**: [CHANGELOG.md](./CHANGELOG.md)
+
+---
+
+## 🤝 Contributors
+
+- **@Deshun99** — Developer & Maintainer
+
+---
+
+## 🛡 License
+
+This project is licensed under the MIT License. See `LICENSE` for details.
