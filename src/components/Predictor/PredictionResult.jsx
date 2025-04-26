@@ -115,7 +115,7 @@ const PredictionResult = ({ result }) => {
                 sx={{
                   display: "flex",
                   flexWrap: "wrap",
-                  gap: 0.3,
+                  gap: 0.2,
                   justifyContent: "space-between",
                 }}
               >
