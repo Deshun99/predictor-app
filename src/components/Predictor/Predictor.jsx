@@ -296,7 +296,7 @@ const Predictor = () => {
                 renderInput={(params) => (
                   <TextField
                     {...params}
-                    label="Select Version"
+                    label="Version"
                     variant="outlined"
                   />
                 )}
