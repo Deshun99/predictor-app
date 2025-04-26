@@ -36,7 +36,7 @@ const AllCardsDisplay = ({ cards }) => {
               Deck {deck.deckName}
             </Typography>
 
-            <Box sx={{ display: "flex", flexWrap: "wrap", gap: 0.5 }}>
+            <Box sx={{ display: "flex", flexWrap: "wrap", gap: 0.3, justifyContent: "space-between" }}>
               {deck.cards.map((card, i) => (
                 <React.Fragment key={i}>
                   <Typography
