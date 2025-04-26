@@ -14,22 +14,16 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Set Git identity
-        run: |
-          git config --global user.name "github-actions[bot]"
-          git config --global user.email "github-actions[bot]@users.noreply.github.com"
-
       - name: Bump version and push tag
         id: bump_version
         uses: anothrNick/github-tag-action@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.PAT_TOKEN }}
-          DEFAULT_BUMP: patch
-          WITH_V: true
-          RELEASE_BRANCHES: main
-          DRY_RUN: false
-          INITIAL_VERSION: 1.0.0
-          VERBOSE: true
-          TAG_MESSAGE: ${{ github.event.head_commit.message }}
-          GIT_USER_NAME: github-actions[bot]            
-          GIT_USER_EMAIL: github-actions[bot]@users.noreply.github.com
+        with:
+          github_token: ${{ secrets.PAT_TOKEN }}
+          default_bump: patch
+          with_v: true
+          release_branches: main
+          initial_version: 1.0.0
+          verbose: true
+          tag_message: ${{ github.event.head_commit.message }}
+          git_user_name: github-actions[bot]       # <-- here under `with`, not under `env`
+          git_user_email: github-actions[bot]@users.noreply.github.com
