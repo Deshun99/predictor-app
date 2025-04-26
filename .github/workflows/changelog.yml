@@ -3,7 +3,7 @@ name: Generate CHANGELOG
 on:
   push:
     tags:
-      - "v*"   # Only trigger on version tag push, like v1.2.3
+      - "v*"  # Only trigger on version tag push, like v1.2.3
 
 jobs:
   generate_changelog:
@@ -14,12 +14,17 @@ jobs:
         with:
           fetch-depth: 0
 
+      - name: Switch back to main branch
+        run: |
+          git fetch origin main
+          git checkout main
+
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '18'
 
-      - name: Install dependencies
+      - name: Install conventional-changelog-cli
         run: npm install -D conventional-changelog-cli
 
       - name: Generate CHANGELOG.md
