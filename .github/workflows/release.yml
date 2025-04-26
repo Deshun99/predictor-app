@@ -1,6 +1,10 @@
 name: Release Automation
 
 on:
+  create:
+    tags:
+      - '*'
+
   push:
     tags:
       - 'v*'  # Only trigger when pushing a tag like v1.2.3
@@ -18,4 +22,4 @@ jobs:
         with:
           generate_release_notes: true
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.PAT_TOKEN }}
