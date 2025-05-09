@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo } from "react";
 import { Card, Typography, Box } from "@mui/material";
 import "../../App.css";
 
@@ -69,6 +69,21 @@ const getHighlightStyle = (
 
 // PredictionResult Component
 const PredictionResult = ({ result }) => {
+
+  const tiktokVideoIds = [
+    "7502005234613456149",
+    "7497484058063031572",
+    "7502012942796295445",
+    "7498771593871494421",
+  ];
+
+  // Randomly select one video ID per render
+  const randomTikTokId = useMemo(() => {
+    const index = Math.floor(Math.random() * tiktokVideoIds.length);
+    return tiktokVideoIds[index];
+  }, [result]);
+
+
   return (
     <Box
       sx={{
@@ -144,14 +159,26 @@ const PredictionResult = ({ result }) => {
           );
         })
       ) : (
-        // Handle case when result is empty ([])
-        <Typography
-          variant="body1"
-          color="textSecondary"
-          sx={{ marginTop: 4, fontWeight: "bold" }}
-        >
-          No valid prediction found.
-        </Typography>
+        <>
+          <Typography
+            variant="body1"
+            color="textSecondary"
+            sx={{ marginTop: 4, fontWeight: "bold" }}
+          >
+            No valid prediction found.
+          </Typography>
+          <Box sx={{ display: "flex", justifyContent: "center" }}>
+            <iframe
+              src={`https://www.tiktok.com/embed/v2/${randomTikTokId}`}
+              width="325"
+              height="580"
+              allow="encrypted-media"
+              allowFullScreen
+              style={{ border: "none", borderRadius: "8px" }}
+              title="Random TikTok Video"
+            />
+          </Box>
+        </>
       )}
     </Box>
   );
