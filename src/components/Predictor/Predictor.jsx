@@ -39,6 +39,11 @@ const Predictor = () => {
 
   const versionOptions = ["1"];
 
+  const playSound = () => {
+    const audio = new Audio("/houseburndown.mp3");
+    audio.play();
+  };
+
   // Fetch cards only when a version is selected
   useEffect(() => {
     if (selectedVer) {
@@ -324,6 +329,7 @@ const Predictor = () => {
                 variant="contained"
                 disabled={!pendingVersion}
                 onClick={async () => {
+                  playSound();
                   setSelectedVer(pendingVersion);
                   setSelectedBarcodeDown(pendingBarcodeDown);
 
