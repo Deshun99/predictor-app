@@ -50,7 +50,7 @@ const AllCardsDisplay = ({ cards }) => {
                         : "transparent",
                       color: card.includes("(Bronze)") ? "white" : "black",
                       borderRadius: "5px",
-                      padding: "2px 4px",
+                      padding: "1px 2px",
                       fontSize: "12px",
                     }}
                   >
