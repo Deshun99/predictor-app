@@ -1,5 +1,5 @@
 import React, { useMemo } from "react";
-import { Card, Typography, Box } from "@mui/material";
+import { Card, Typography, Box, Chip, Avatar } from "@mui/material";
 import "../../App.css";
 
 // Function to apply color styles dynamically
@@ -10,13 +10,6 @@ const getHighlightStyle = (
   predictedCardIndex,
   firstMatchIndex
 ) => {
-  if (index < firstMatchIndex) {
-    return {
-      color: "grey",
-      opacity: 0.5,
-      fontSize: "12px",
-    };
-  }
   if (matchedIndices.includes(index)) {
     return {
       backgroundColor: "yellow",
@@ -33,7 +26,7 @@ const getHighlightStyle = (
       color: "white",
       fontWeight: "bold",
       borderRadius: "5px",
-      padding: "2px 4px",
+      padding: "1px 2px",
       fontSize: "12px",
     };
   }
@@ -43,7 +36,7 @@ const getHighlightStyle = (
       color: "white",
       fontWeight: "bold",
       borderRadius: "5px",
-      padding: "2px 4px",
+      padding: "1px 2px",
       fontSize: "12px",
     };
   if (card.includes("(Silver)"))
@@ -52,7 +45,7 @@ const getHighlightStyle = (
       color: "black",
       fontWeight: "bold",
       borderRadius: "5px",
-      padding: "2px 4px",
+      padding: "1px 2px",
       fontSize: "12px",
     };
   if (card.includes("(Gold)"))
@@ -61,15 +54,14 @@ const getHighlightStyle = (
       color: "black",
       fontWeight: "bold",
       borderRadius: "5px",
-      padding: "2px 4px",
+      padding: "1px 2px",
       fontSize: "12px",
     };
-  return { fontSize: "12px" };
+  return { fontSize: "12px", borderRadius: "5px", padding: "1px 2px" };
 };
 
 // PredictionResult Component
 const PredictionResult = ({ result }) => {
-
   const tiktokVideoIds = [
     "7502005234613456149",
     "7497484058063031572",
@@ -87,19 +79,18 @@ const PredictionResult = ({ result }) => {
     return tiktokVideoIds[index];
   }, [result]);
 
-
   return (
     <Box
       sx={{
-        maxHeight: "600px",
+        maxHeight: "650px",
         width: "100%",
-        maxWidth: "1000px", // Slightly smaller than main container
+        maxWidth: "1000px",
         textAlign: "center",
         margin: "0 auto",
-        overflowX: "hidden", // Prevent any horizontal shifting
+        overflowX: "hidden",
       }}
     >
-      {result === null ? ( // Handle case when result is not set
+      {result === null ? (
         <Typography
           variant="body1"
           color="textSecondary"
@@ -107,12 +98,24 @@ const PredictionResult = ({ result }) => {
         >
           Please submit a prediction.
         </Typography>
-      ) : result.length > 0 ? ( // Handle case when results exist
+      ) : result.length > 0 ? (
         result.map((deck, index) => {
           const firstMatchIndex =
             deck.matchedIndices.length > 0
               ? Math.min(...deck.matchedIndices)
               : deck.cards.length;
+
+          const goldCount = deck.cards.filter(
+            (card, i) => i >= firstMatchIndex && card.includes("(Gold)")
+          ).length;
+
+          const silverCount = deck.cards.filter(
+            (card, i) => i >= firstMatchIndex && card.includes("(Silver)")
+          ).length;
+
+          const bronzeCount = deck.cards.filter(
+            (card, i) => i >= firstMatchIndex && card.includes("(Bronze)")
+          ).length;
 
           return (
             <Card
@@ -125,11 +128,94 @@ const PredictionResult = ({ result }) => {
               }}
             >
               {/* Deck Title */}
-              <Typography variant="h6" sx={{ fontWeight: "bold", mb: 1 }}>
-                {deck.deckName}
-              </Typography>
+              <Box
+                sx={{
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  flexWrap: "wrap",
+                  mb: 1,
+                }}
+              >
+                <Typography variant="h6" sx={{ fontWeight: "bold", mr: 1 }}>
+                  {deck.deckName}
+                </Typography>
 
-              {/* Deck Card List with Highlights */}
+                <Chip
+                  label="Gold"
+                  avatar={
+                    <Avatar
+                      sx={{
+                        bgcolor: "white",
+                        color: "black",
+                        width: 24,
+                        height: 24,
+                        fontSize: "12px",
+                      }}
+                    >
+                      {goldCount}
+                    </Avatar>
+                  }
+                  sx={{
+                    backgroundColor: "gold",
+                    color: "black",
+                    fontWeight: "bold",
+                    mr: 1,
+                  }}
+                  variant="outlined"
+                />
+
+                <Chip
+                  label="Silver"
+                  avatar={
+                    <Avatar
+                      sx={{
+                        bgcolor: "white",
+                        color: "black",
+                        width: 24,
+                        height: 24,
+                        fontSize: "12px",
+                      }}
+                    >
+                      {silverCount}
+                    </Avatar>
+                  }
+                  sx={{
+                    backgroundColor: "silver",
+                    color: "black",
+                    fontWeight: "bold",
+                    mr: 1,
+                  }}
+                  variant="outlined"
+                />
+
+                <Chip
+                  label="Bronze"
+                  avatar={
+                    <Avatar
+                      sx={{
+                        bgcolor: "white",
+                        color: "#cd7f32",
+                        border: "1px solid #cd7f32",
+                        width: 24,
+                        height: 24,
+                        fontSize: "12px",
+                      }}
+                    >
+                      {bronzeCount}
+                    </Avatar>
+                  }
+                  sx={{
+                    backgroundColor: "#cd7f32",
+                    color: "white",
+                    fontWeight: "bold",
+                    mr: 1,
+                  }}
+                  variant="outlined"
+                />
+              </Box>
+
+              {/* Deck Card List with Highlights (starting from firstMatchIndex) */}
               <Box
                 sx={{
                   display: "flex",
@@ -138,51 +224,45 @@ const PredictionResult = ({ result }) => {
                   justifyContent: "space-between",
                 }}
               >
-                {deck.cards.map((card, i) => (
-                  <React.Fragment key={i}>
-                    <Typography
-                      sx={getHighlightStyle(
-                        card,
-                        i,
-                        deck.matchedIndices,
-                        deck.predictedCardIndex,
-                        firstMatchIndex
-                      )}
-                    >
-                      {card}
-                    </Typography>
-                    {i !== deck.cards.length - 1 && (
-                      <Typography sx={{ fontSize: "12px", color: "black" }}>
-                        →
+                {deck.cards.slice(firstMatchIndex).map((card, i) => {
+                  const actualIndex = i + firstMatchIndex;
+                  return (
+                    <React.Fragment key={actualIndex}>
+                      <Typography
+                        sx={getHighlightStyle(
+                          card,
+                          actualIndex,
+                          deck.matchedIndices,
+                          deck.predictedCardIndex,
+                          firstMatchIndex
+                        )}
+                      >
+                        {card}
                       </Typography>
-                    )}
-                  </React.Fragment>
-                ))}
+                      {i !== deck.cards.slice(firstMatchIndex).length - 1 && (
+                        <Typography sx={{ fontSize: "12px", color: "black" }}>
+                          →
+                        </Typography>
+                      )}
+                    </React.Fragment>
+                  );
+                })}
               </Box>
             </Card>
           );
         })
       ) : (
-        <>
-          <Typography
-            variant="body1"
-            color="textSecondary"
-            sx={{ marginTop: 4, fontWeight: "bold" }}
-          >
-            No valid prediction found.
-          </Typography>
-          <Box sx={{ display: "flex", justifyContent: "center" }}>
-            <iframe
-              src={`https://www.tiktok.com/embed/v2/${randomTikTokId}`}
-              width="325"
-              height="580"
-              allow="encrypted-media"
-              allowFullScreen
-              style={{ border: "none", borderRadius: "8px" }}
-              title="Random TikTok Video"
-            />
-          </Box>
-        </>
+        <Box sx={{ marginTop: 2, display: "flex", justifyContent: "center" }}>
+          <iframe
+            src={`https://www.tiktok.com/embed/v2/${randomTikTokId}`}
+            width="325"
+            height="580"
+            allow="encrypted-media"
+            allowFullScreen
+            style={{ border: "none", borderRadius: "8px" }}
+            title="Random TikTok Video"
+          />
+        </Box>
       )}
     </Box>
   );
