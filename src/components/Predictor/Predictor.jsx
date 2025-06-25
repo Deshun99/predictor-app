@@ -37,7 +37,7 @@ const Predictor = () => {
   const [barcodeDown, setBarcodeDown] = useState(false);
   const [result, setResult] = useState(null);
 
-  const versionOptions = ["1"];
+  const versionOptions = ["1","2"];
 
   // Fetch cards only when a version is selected
   useEffect(() => {
