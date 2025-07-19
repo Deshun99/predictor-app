@@ -10,6 +10,8 @@
 
 body {
   font-family: 'Montserrat', sans-serif;
+  background: linear-gradient(to bottom, #e0e6e3, #edf2f0);
+  margin: 0;
 }
 
 .predictor-container {
