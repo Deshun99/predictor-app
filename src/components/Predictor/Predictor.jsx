@@ -169,7 +169,7 @@ const Predictor = () => {
             <form onSubmit={handleSubmit} className="formContainer">
               {/* Card Selection - Disabled Until Version is Selected */}
               <Autocomplete
-                sx={{ mb: 2 }}
+                sx={{ mb: 2, backgroundColor: "white" }}
                 options={allCards}
                 value={selectedCard1}
                 onChange={(event, newValue) => setSelectedCard1(newValue)}
@@ -180,7 +180,7 @@ const Predictor = () => {
               />
 
               <Autocomplete
-                sx={{ mb: 2 }}
+                sx={{ mb: 2, backgroundColor: "white" }}
                 options={allCards}
                 value={selectedCard2}
                 onChange={(event, newValue) => setSelectedCard2(newValue)}
@@ -192,7 +192,7 @@ const Predictor = () => {
 
               {tabIndex === 1 && (
                 <Autocomplete
-                  sx={{ mb: 2 }}
+                  sx={{ mb: 2, backgroundColor: "white" }}
                   options={allCards}
                   value={selectedCard3}
                   onChange={(event, newValue) => setSelectedCard3(newValue)}
@@ -213,7 +213,7 @@ const Predictor = () => {
                 }}
               >
                 <Autocomplete
-                  sx={{ width: "120px" }}
+                  sx={{ width: "120px", backgroundColor: "white" }}
                   options={versionOptions}
                   value={selectedVer}
                   onChange={(event, newValue) => setSelectedVer(newValue)}
@@ -289,16 +289,12 @@ const Predictor = () => {
               }}
             >
               <Autocomplete
-                sx={{ width: "120px" }}
+                sx={{ width: "120px", backgroundColor: "white" }}
                 options={versionOptions}
                 value={pendingVersion}
                 onChange={(event, newValue) => setPendingVersion(newValue)}
                 renderInput={(params) => (
-                  <TextField
-                    {...params}
-                    label="Version"
-                    variant="outlined"
-                  />
+                  <TextField {...params} label="Version" variant="outlined" />
                 )}
               />
 
@@ -328,7 +324,10 @@ const Predictor = () => {
                   setSelectedBarcodeDown(pendingBarcodeDown);
 
                   if (pendingVersion) {
-                    const cards = await fetchCardsByVersion(pendingVersion,pendingBarcodeDown);
+                    const cards = await fetchCardsByVersion(
+                      pendingVersion,
+                      pendingBarcodeDown
+                    );
                     setCardsByVersion(cards);
                   } else {
                     setCardsByVersion([]);

@@ -30,13 +30,21 @@ const AllCardsDisplay = ({ cards }) => {
               borderRadius: "8px",
               backgroundColor: "white",
               boxShadow: 1,
+              mb: 2,
             }}
           >
             <Typography variant="h6" sx={{ fontWeight: "bold", mb: 1 }}>
               Deck {deck.deckName}
             </Typography>
 
-            <Box sx={{ display: "flex", flexWrap: "wrap", gap: 0.2, justifyContent: "space-between" }}>
+            <Box
+              sx={{
+                display: "flex",
+                flexWrap: "wrap",
+                gap: 0.2,
+                justifyContent: "space-between",
+              }}
+            >
               {deck.cards.map((card, i) => (
                 <React.Fragment key={i}>
                   <Typography
