@@ -83,15 +83,16 @@ const PredictionResult = ({ result }) => {
         textAlign: "center",
         margin: "0 auto",
         overflowX: "hidden",
+        marginTop: 2,
       }}
     >
       {result === null ? (
         <Typography
           variant="body1"
           color="textSecondary"
-          sx={{ marginTop: 4, fontWeight: "bold" }}
+          sx={{ fontWeight: "bold" }}
         >
-          Please submit a prediction.
+          Enter the cards you've received
         </Typography>
       ) : result.length > 0 ? (
         result.map((deck, index) => {
