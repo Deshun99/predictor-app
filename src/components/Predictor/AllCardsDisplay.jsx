@@ -17,7 +17,7 @@ const AllCardsDisplay = ({ cards }) => {
         <Typography
           variant="body1"
           color="textSecondary"
-          sx={{ marginTop: 4, fontWeight: "bold" }}
+          sx={{ fontWeight: "bold" }}
         >
           Select a version to view all cards
         </Typography>
