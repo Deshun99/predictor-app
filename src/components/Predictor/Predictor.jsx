@@ -252,7 +252,7 @@ const Predictor = () => {
                   sx={{
                     width: "100px",
                     padding: "8px 16px",
-                    fontSize: "14px",
+                    fontSize: "13px",
                     fontWeight: "bold",
                     backgroundColor: "#1976d2",
                     color: "white",
@@ -264,7 +264,7 @@ const Predictor = () => {
                     },
                   }}
                 >
-                  Predict
+                  Next Card
                 </Button>
               </Box>
             </form>
